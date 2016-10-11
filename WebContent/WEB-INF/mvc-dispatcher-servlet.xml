@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        <!-- 使Spring支持自动检测组件，如注解的Controller -->
+        <context:component-scan base-package="com.wk.controller"/>
+        <!-- 默认注入RequestMappingHandlerAdapter  @ResponseBody+jackson-mapper-asl-*.jar+jackson-core-asl-*.jar可以
+        将返回结果默认转为json字符串-->
+        <mvc:annotation-driven/>
+        
+        <mvc:resources location="/WEB-INF/static/" mapping="/static/**"/>
+        <mvc:default-servlet-handler/>
+        <!-- 定义一个视图解析器 -->
+        <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        	<property name="prefix">
+        		<value>/WEB-INF/pages/</value>
+        	</property>
+        	<property name="suffix">
+        		<value>.jsp</value>
+        	</property>
+        </bean>
+</beans>        

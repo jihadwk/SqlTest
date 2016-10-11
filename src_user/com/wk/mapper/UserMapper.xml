@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  <!-- <mapper namespace="com.wk.mapper.UserMapper"> -->
+  <mapper namespace="com.wk.mybatis.inter.IUserOperation">
+  	<select id="selectUserByID" parameterType="int" resultType="User">
+  		select*from user where id=#{id}
+  	</select>
+  	<!-- 数据库字段与对象属性映射（不一致） -->
+  	<resultMap type="User" id="resultListUser">
+  		<id column="id" property="id"/>
+  		<result column="userName" property="userName"/>
+  		<result column="userAge" property="userAge"/>
+  		<result column="userAddress" property="userAddress"/>
+  	</resultMap>
+  	<select id="selectUserList" parameterType="string" resultMap="resultListUser">
+  		select*from user where userName like #{userName}
+  	</select>
+  	<!-- 这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键,注入到user中(id) -->
+  	<insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+  		insert into user(userName,userAge,userAddress) values(#{userName},#{userAge},#{userAddress})
+  	</insert>
+  </mapper>
